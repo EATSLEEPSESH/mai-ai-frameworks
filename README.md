@@ -49,8 +49,12 @@ sklearn, своя реализация, проверка гипотез об у�
 
 ## Данные
 
-Сырые выгрузки и признаки в репозиторий не кладутся (объём, условия ISS) —
-воспроизводятся двумя командами:
+Два варианта.
+
+**1. Готовые признаки уже в репозитории** — `data/processed/*.csv` (27 МБ, выгрузка
+на 23.11.2026). Клонируешь и сразу запускаешь ноутбуки, сеть не нужна.
+
+**2. Пересобрать с нуля из ISS** (альтернатива, если нужны свежие данные):
 
 ```bash
 python scripts/fetch_moex.py        # data/raw/{shares,bonds}.csv + справочники
@@ -66,7 +70,8 @@ python scripts/build_features.py    # data/processed/*_features.csv
 ```bash
 uv venv --python 3.12 .venv
 uv pip install --python .venv/Scripts/python.exe -r requirements.txt
-python scripts/fetch_moex.py && python scripts/build_features.py
+# данные уже в репозитории, пересобирать не нужно; если всё же надо:
+# python scripts/fetch_moex.py && python scripts/build_features.py
 .venv/Scripts/python.exe -m jupyter nbconvert --to notebook --execute --inplace lab1_knn/lab1_knn.ipynb
 # и так далее по lab2…lab6 — lab6 читает results/results.jsonl, поэтому запускается последним
 ```
